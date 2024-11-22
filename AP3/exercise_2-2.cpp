@@ -4,30 +4,39 @@
 using namespace std;
 
 class Palyndrome{
+    private:
+
+        string word;
+        int head = 0;
+        int tail;
+
     public:
 
-    string word;
+        Palyndrome(string chosen_word){
+            word = chosen_word;
+            tail = word.length() - 1;
+        };
 
-    bool verify(string word){
-        int head = 0;
-        int tail = word.length() - 1;
-        while(head <= tail){
-            if(word[head] != word[tail]){
-                return false;
+        ~Palyndrome(){cout << "Objeto Palyndrome destruído!";}
+
+        bool verify(){
+            while(head <= tail){
+                if(word[head] != word[tail]){
+                    return false;
+                }
+                head++;
+                tail--;
             }
-            head++;
-            tail--;
+            return true;
         }
-        return true;
-    }
 };
 
 int main(){
+    string word;
+    cin >> word;
+    Palyndrome test(word);
 
-    Palyndrome test;
-    cin >> test.word;
-
-    if(test.verify(test.word) == 1){
+    if(test.verify() == 1){
         cout <<"Esta palavra e um palindromo!";
     } else {
         cout << "Esta palavra nao e um palindromo!";

@@ -23,11 +23,11 @@ public:
     void clear() {
         delete [] listArray;
         listSize = curr = 0;
-        listArray = new E[maxSize]; // por quê recriar o array com o tamanho padrão "maxsize"?
+        listArray = new E[maxSize];
     }
     
     void insert(const E& it) {
-        assert(listSize < maxSize && "List capacity exceeded"); // Para quê serve e como utilizar a função Assert?
+        assert(listSize < maxSize && "List capacity exceeded");
         for (int i=listSize; i>curr; i--){
             listArray[i] = listArray[i-1];
         }
