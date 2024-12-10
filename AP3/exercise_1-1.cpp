@@ -75,7 +75,7 @@ public:
         for(int i = 0; i < listSize; i++){
             if(listArray[i] == element){
                 qtt_eq++;
-            }                                                                                                                        
+            }                                                                                                                          
         }
         return qtt_eq;
     }
