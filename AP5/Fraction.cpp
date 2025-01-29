@@ -3,9 +3,10 @@
 #include <stdexcept>
 #include <bits/stl_algo.h>
 
+// Construtor para long
 Fraction::Fraction(long num, long denom) : numerator(num), denominator(denom) {
     if (denominator == 0) {
-        std::cerr << "Erro: Denominador nao pode ser zero." << std::endl;
+        std::cerr << "Erro: Denominador não pode ser zero." << std::endl;
         std::exit(1);
     }
     if (denominator < 0) {
@@ -15,12 +16,17 @@ Fraction::Fraction(long num, long denom) : numerator(num), denominator(denom) {
     simplify();
 }
 
+// Construtor para int
+Fraction::Fraction(int value) : numerator(value), denominator(1) {}
+
+// Simplificação
 void Fraction::simplify() {
     long gcd = std::__gcd(numerator, denominator);
     numerator /= gcd;
     denominator /= gcd;
 }
 
+// Operadores unários
 Fraction Fraction::operator-() const {
     return Fraction(-numerator, denominator);
 }
@@ -59,7 +65,7 @@ Fraction& Fraction::operator*=(const Fraction& other) {
 
 Fraction& Fraction::operator/=(const Fraction& other) {
     if (other.numerator == 0) {
-        throw std::invalid_argument("Divisao por zero.");
+        throw std::invalid_argument("Divisão por zero.");
     }
     numerator *= other.denominator;
     denominator *= other.numerator;
@@ -108,7 +114,7 @@ std::istream& operator>>(std::istream& in, Fraction& frac) {
     std::cout << "Digite o denominador: ";
     in >> frac.denominator;
     if (frac.denominator == 0) {
-        throw std::invalid_argument("Denominador nao pode ser zero.");
+        throw std::invalid_argument("Denominador não pode ser zero.");
     }
     if (frac.denominator < 0) {
         frac.numerator = -frac.numerator;
@@ -118,24 +124,31 @@ std::istream& operator>>(std::istream& in, Fraction& frac) {
     return in;
 }
 
-// Função principal para testar
+// Conversão para double
+Fraction::operator double() const {
+    return static_cast<double>(numerator) / denominator;
+}
+
+// Função principal para teste
 int main() {
-    Fraction a(3, 4), b(5, 6), c;
-    std::cout << "Fracoes iniciais: a = " << a << ", b = " << b << std::endl;
+    Fraction a(3, 4), b(5, 6);
+    int integer = 7;
+    double result;
 
-    std::cout << "Digite uma fracao (c):" << std::endl;
-    std::cin >> c;
+    // Converter int para fração
+    Fraction c = integer;
 
-    std::cout << "a + b = " << (a + b) << std::endl;
-    std::cout << "a - b = " << (a - b) << std::endl;
-    std::cout << "a * b = " << (a * b) << std::endl;
-    std::cout << "a / b = " << (a / b) << std::endl;
+    // Converter fração para double
+    result = static_cast<double>(a);
 
-    std::cout << "++a = " << (++a) << std::endl;
-    std::cout << "--b = " << (--b) << std::endl;
+    std::cout << "Fração a: " << a << std::endl;
+    std::cout << "Fração b: " << b << std::endl;
+    std::cout << "Inteiro convertido para fração (c): " << c << std::endl;
+    std::cout << "Fração a convertida para double: " << result << std::endl;
 
-    a += c;
-    std::cout << "a += c: " << a << std::endl;
+    // Operações e atribuições
+    Fraction d = a + b;
+    std::cout << "a + b = " << d << std::endl;
 
     return 0;
 }
